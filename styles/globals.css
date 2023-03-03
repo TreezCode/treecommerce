@@ -23,6 +23,7 @@ a {
 }
 .layout {
   padding: 10px;
+  background-color: #000000;
 }
 
 .navbar-container {
@@ -114,7 +115,7 @@ span.text-red {
 }
 .product-image {
   border-radius: 15px;
-  background-color: #ebebeb;
+  background-color: #a9a9a9;
   transform: scale(1, 1);
   transition: transform 0.5s ease;
 }
@@ -274,7 +275,7 @@ span.text-red {
 .cart-container {
   height: 100vh;
   width: 600px;
-  background-color: white;
+  background-color: #a9a9a9;
   float: right;
   padding: 40px 10px;
   position: relative;
@@ -514,7 +515,6 @@ span.text-red {
 }
 .quantity-desc {
   border: 1px solid gray;
-  padding: 6px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -527,6 +527,7 @@ span.text-red {
 .quantity-desc .minus {
   border-right: 1px solid gray;
   color: #f02d34;
+  font-size: 20px;
 }
 .quantity-desc .num {
   font-size: 20px;
@@ -535,6 +536,7 @@ span.text-red {
 .quantity-desc .plus {
   border-left: 1px solid gray;
   color: rgb(49, 168, 49);
+  font-size: 20px;
 }
 
 .maylike-products-wrapper {
