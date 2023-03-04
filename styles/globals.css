@@ -109,6 +109,8 @@ span.text-red {
   transform: scale(1, 1);
   transition: transform 0.5s ease;
   color: #324d67;
+  text-align: center;
+  margin: 1rem;
 }
 .product-card:hover {
   transform: scale(1.1, 1.1);
@@ -479,7 +481,7 @@ span.text-red {
 }
 .product-detail-desc .buttons {
   display: flex;
-  gap: 30px;
+  gap: 1rem;
 }
 .buttons .add-to-cart {
   padding: 10px 20px;
@@ -541,6 +543,7 @@ span.text-red {
 
 .maylike-products-wrapper {
   margin-top: 120px;
+  overflow-x: hidden;
 }
 .maylike-products-wrapper h2 {
   text-align: center;
@@ -613,6 +616,14 @@ span.text-red {
   margin-top: 10px;
 }
 
+@media screen and (max-width: 956px) {
+  .buttons .add-to-cart {
+    width: 150px;
+  }
+  .buttons .buy-now {
+    width: 150px;
+  }
+}
 @media screen and (max-width: 800px) {
   .hero-banner-container {
     height: 560px;
@@ -753,4 +764,14 @@ span.text-red {
     width: 300px;
     margin: auto;
   }
+}
+
+.slick-prev{
+  left: 25px !important;
+  z-index: 1000;
+}
+
+.slick-next {
+  right: 25px !important;
+  z-index: 1000;
 }

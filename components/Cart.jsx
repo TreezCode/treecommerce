@@ -1,17 +1,18 @@
 import { useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { TiDeleteOutline } from 'react-icons/ti';
 import {
   AiOutlineMinus,
   AiOutlinePlus,
   AiOutlineLeft,
   AiOutlineShopping,
 } from 'react-icons/ai';
-import { TiDeleteOutline } from 'react-icons/ti';
-import { toast } from 'react-hot-toast';
 
 import { useStateContext } from '@/context/StateContext';
 import { urlFor } from '@/lib/client';
+import getStripe from '@/lib/getStripe';
+import { toast } from 'react-hot-toast';
 
 const Cart = () => {
   const cartRef = useRef();
@@ -23,6 +24,32 @@ const Cart = () => {
     toggleCartItemQuantity,
     onRemove,
   } = useStateContext();
+  
+  const handleCheckout = async () => {
+    const stripe = await getStripe();
+
+    const response = await fetch('/api/stripe', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(cartItems),
+    });
+
+    if(response.statusCode === 500) return;
+
+    const data = await response.json();
+
+    toast.loading('Redirecting...');
+
+    stripe.redirectToCheckout({ sessionId: data.id });
+  }
+
+  const preventTextSelect = (event) => {
+    if (event.detail > 1) {
+      event.preventDefault(); // prevent text select on double-click
+    }
+  };
 
   return (
     <div className='cart-wrapper' ref={cartRef}>
@@ -78,6 +105,7 @@ const Cart = () => {
                           onClick={() =>
                             toggleCartItemQuantity(item._id, 'dec')
                           }
+                          onMouseDown={preventTextSelect}
                         >
                           <AiOutlineMinus />
                         </span>
@@ -87,6 +115,7 @@ const Cart = () => {
                           onClick={() =>
                             toggleCartItemQuantity(item._id, 'inc')
                           }
+                          onMouseDown={preventTextSelect}
                         >
                           <AiOutlinePlus />
                         </span>
@@ -95,7 +124,7 @@ const Cart = () => {
                     <button
                       type='button'
                       className='remove-item'
-                      onClick={() => onRemove(item)}
+                      onClick={() => onRemove(item, true)}
                     >
                       <TiDeleteOutline />
                     </button>
@@ -110,11 +139,11 @@ const Cart = () => {
               <h3>Subtotal:</h3>
               <h3>${totalPrice}</h3>
             </div>
-            {/* <div className='btn-container'>
-              <button type='button' className='btn' onClick={''}>
+            <div className='btn-container'>
+              <button type='button' className='btn' onClick={handleCheckout}>
                 Pay with Stripe
               </button>
-            </div> */}
+            </div>
           </div>
         )}
       </div>
