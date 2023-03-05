@@ -1,5 +1,7 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
+import { readClient } from '@/lib/client';
 import { toast } from 'react-hot-toast';
+import Cookies from 'js-cookie';
 
 const Context = createContext();
 
@@ -10,23 +12,56 @@ export const StateContext = ({ children }) => {
   const [totalQuantities, setTotalQuantities] = useState(0);
   const [qty, setQty] = useState(1);
 
-  const onAdd = (product, quantity, showToast) => {
-    const checkProductInCart = cartItems.find((item) => item._id === product._id);
+  useEffect(() => {
+    const cart = Cookies.get('cart');
+    if (cart) {
+      const parsedCartItems = JSON.parse(cart);
+      setCartItems(parsedCartItems);
+  
+      // Calculate total quantities and price based on cart items
+      const totalQuantities = parsedCartItems.reduce((acc, item) => acc + item.quantity, 0);
+      const totalPrice = parsedCartItems.reduce((acc, item) => acc + item.quantity * item.price, 0);
+  
+      setTotalQuantities(totalQuantities);
+      setTotalPrice(totalPrice);
+    }
+  }, []);
 
-    const updatedCartItems = checkProductInCart
-      ? cartItems.map((cartProduct) =>
-          cartProduct._id === product._id
-            ? { ...cartProduct, quantity: cartProduct.quantity + quantity }
-            : cartProduct
-        )
-      : [...cartItems, { ...product, quantity }];
+  useEffect(() => {
+    Cookies.set('cart', JSON.stringify(cartItems), { expires: 7, sameSite: 'none', secure: true });
+  }, [cartItems]);
 
-    if(showToast) toast.success(`${quantity} ${product.name} added to the cart.`);
 
-    setQty(1);
-    setCartItems(updatedCartItems); 
-    setTotalPrice((prevTotalPrice) => prevTotalPrice + product.price * quantity);
-    setTotalQuantities((prevTotalQuantities) => prevTotalQuantities + quantity);
+  const onAdd = async (product, quantity, showToast) => {
+    try {
+      const slug = product.slug.current;
+      const query = `*[_type == "product" && slug.current == '${slug}']`;
+      const productData = await readClient.fetch(query);
+
+      if (productData[0].price !== product.price) {
+        throw new Error('Price manipulation detected');
+      }
+  
+      const checkProductInCart = cartItems.find((item) => item._id === product._id);
+  
+      const updatedCartItems = checkProductInCart
+        ? cartItems.map((cartProduct) =>
+            cartProduct._id === product._id
+              ? { ...cartProduct, quantity: cartProduct.quantity + quantity }
+              : cartProduct
+          )
+        : [...cartItems, { ...product, quantity }];
+  
+      if(showToast) toast.success(`${quantity} ${product.name} added to the cart.`);
+  
+      setQty(1);
+      setCartItems(updatedCartItems); 
+      setTotalPrice((prevTotalPrice) => prevTotalPrice + product.price * quantity);
+      setTotalQuantities((prevTotalQuantities) => prevTotalQuantities + quantity);
+    } catch (error) {
+      console.error(error);
+      toast.error('Error adding item to cart');
+    }
   };
 
   const onRemove = (product, showToast) => {
@@ -75,7 +110,6 @@ export const StateContext = ({ children }) => {
     );
   };
 
-
   const incQty = () => {
     setQty((prevQty) => prevQty + 1);
   };
@@ -88,17 +122,20 @@ export const StateContext = ({ children }) => {
   };
 
   const value = {
-    showCart,
-    setShowCart,
-    cartItems,
-    totalPrice,
-    totalQuantities,
     qty,
     setQty,
     incQty,
     decQty,
     onAdd,
     onRemove,
+    showCart,
+    setShowCart,
+    cartItems,
+    setCartItems,
+    totalPrice,
+    setTotalPrice,
+    totalQuantities,
+    setTotalQuantities,
     toggleCartItemQuantity,
   }
 

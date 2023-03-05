@@ -270,7 +270,7 @@ span.text-red {
   position: fixed;
   right: 0;
   top: 0;
-  z-index: 100;
+  z-index: 1500;
   /* will-change: transform; */
   transition: all 1s ease-in-out;
 }
@@ -564,8 +564,8 @@ span.text-red {
 }
 .success-wrapper,
 .cancel-wrapper {
-  background-color: white;
-  min-height: 60vh;
+  background-color: rgb(0, 0, 0);
+  min-height: 65vh;
 }
 .success,
 .cancel {

@@ -18,7 +18,7 @@ const ProductDetails = ({ product, products }) => {
   const { image, name, details, price } = product;
   const [index, setIndex] = useState(0);
 
-  const { setQty, decQty, incQty, qty, onAdd } = useStateContext();
+  const { setQty, decQty, incQty, qty, onAdd, setShowCart } = useStateContext();
 
   // prevent text select on double-click
   const preventTextSelect = (event) => {
@@ -39,6 +39,11 @@ const ProductDetails = ({ product, products }) => {
   };
 
   if (index > image.length - 1) index = image.length - 1;
+  
+  const handleBuyNow = () => {
+    onAdd(product, qty);
+    setShowCart(true);
+  }
 
   useEffect(() => {
     setIndex(0);
@@ -46,7 +51,7 @@ const ProductDetails = ({ product, products }) => {
   }, [product, setQty]);
 
   return (
-    <div>
+    <>
       <div className='product-detail-container'>
         <div className='image-container'>
           <div className='product-detail-image'>
@@ -61,7 +66,7 @@ const ProductDetails = ({ product, products }) => {
             {image?.map((item, i) => {
               return (
                 <Image
-                  key={i}
+                  key={item._key}
                   src={`${urlFor(item)}`}
                   alt='product alt'
                   width={200}
@@ -120,7 +125,7 @@ const ProductDetails = ({ product, products }) => {
             >
               Add to Cart
             </button>
-            <button type='button' className='buy-now'>
+            <button type='button' className='buy-now' onClick={handleBuyNow}>
               Buy Now
             </button>
           </div>
@@ -134,7 +139,7 @@ const ProductDetails = ({ product, products }) => {
           })}
         </Slider>
       </div>
-    </div>
+    </>
   );
 };
 
