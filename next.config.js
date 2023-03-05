@@ -6,8 +6,8 @@ const nextConfig = {
     domains: [
       'cdn.sanity.io',
       'treecommerce.vercel.app',
-      'treecommerce.vercel',
-      'vercel.app'
+      'treecommerce-treezcode.vercel.app',
+      'treecommerce-git-main-treezcode.vercel.app',
     ],
     formats: ['image/webp'],
     unoptimized: true,
