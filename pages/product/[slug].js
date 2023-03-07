@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -10,15 +10,22 @@ import {
   AiOutlineStar,
 } from 'react-icons/ai';
 
+import { useStateContext } from '@/context/StateContext';
 import { readClient, urlFor } from '@/lib/client';
 import { Product } from '@/components';
-import { useStateContext } from '@/context/StateContext';
+import { handleMagnify } from '@/lib/utils';
 
 const ProductDetails = ({ product, products }) => {
   const { image, name, details, price } = product;
   const [index, setIndex] = useState(0);
 
   const { setQty, decQty, incQty, qty, onAdd, setShowCart } = useStateContext();
+
+  let indexRef = useRef(0);
+
+  let mouseInsideImage = false;
+  let magnifierEnabled = false;
+  let magnification = 2;
 
   // prevent text select on double-click
   const preventTextSelect = (event) => {
@@ -35,49 +42,65 @@ const ProductDetails = ({ product, products }) => {
     autoplay: true,
     speed: 3000,
     autoplaySpeed: 2000,
-    cssEase: "linear"
+    cssEase: 'linear',
   };
 
-  if (index > image.length - 1) index = image.length - 1;
-  
   const handleBuyNow = () => {
     onAdd(product, qty);
     setShowCart(true);
-  }
+  };
 
   useEffect(() => {
-    setIndex(0);
+    indexRef.current = 0
+    setIndex(0)
     setQty(1);
   }, [product, setQty]);
+  
+  if (indexRef.current + 1 > image.length) indexRef.current = image.length - 1
 
   return (
     <>
       <div className='product-detail-container'>
         <div className='image-container'>
-          <div className='product-detail-image'>
+          <div className='product-detail-image-container'>
             <Image
-              src={`${urlFor(image && image[index])}`}
+              fill
+              src={`${urlFor(image && image[indexRef.current])}`}
               alt='product-alt'
-              width={400}
-              height={400}
+              className='product-detail-image'
+              style={{ objectFit: 'contain' }}
+              id='productDetailImage'
+              onMouseEnter={(e) => {
+                if (e.target.matches('#productDetailImage')) {
+                  handleMagnify(
+                    e.target.id,
+                    magnification,
+                    magnifierEnabled,
+                    mouseInsideImage
+                  );
+                }
+              }}
             />
           </div>
           <div className='small-images-container'>
             {image?.map((item, i) => {
               return (
-                <Image
-                  key={item._key}
-                  src={`${urlFor(item)}`}
-                  alt='product alt'
-                  width={200}
-                  height={200}
-                  className={
-                    i === index ? 'small-image selected-image' : 'small-image'
-                  }
-                  onMouseEnter={() => {
-                    setIndex(i);
-                  }}
-                />
+                <div className='small-image-wrap' key={item._key}>
+                  <Image
+                    fill
+                    key={item._key}
+                    src={`${urlFor(item)}`}
+                    alt='product alt'
+                    style={{ objectFit: 'contain' }}
+                    className={
+                      i === index ? 'small-image selected-image' : 'small-image'
+                    }
+                    onMouseEnter={() => {
+                      setIndex(i);
+                      indexRef.current = i
+                    }}
+                  />
+                </div>
               );
             })}
           </div>
@@ -85,13 +108,11 @@ const ProductDetails = ({ product, products }) => {
         <div className='product-detail-desc'>
           <h1>{name}</h1>
           <div className='reviews'>
-            <div>
-              <AiFillStar />
-              <AiFillStar />
-              <AiFillStar />
-              <AiFillStar />
-              <AiOutlineStar />
-            </div>
+            <AiFillStar />
+            <AiFillStar />
+            <AiFillStar />
+            <AiFillStar />
+            <AiOutlineStar />
             <p>(20)</p>
           </div>
           <h4>Details:</h4>
@@ -117,15 +138,19 @@ const ProductDetails = ({ product, products }) => {
               </span>
             </p>
           </div>
-          <div className='buttons'>
+          <div className='product-detail-buttons'>
             <button
               type='button'
-              className='add-to-cart'
+              className='btn btn-medium add-to-cart-btn'
               onClick={() => onAdd(product, qty, true)}
             >
               Add to Cart
             </button>
-            <button type='button' className='buy-now' onClick={handleBuyNow}>
+            <button
+              type='button'
+              className='btn btn-medium buy-now-btn'
+              onClick={handleBuyNow}
+            >
               Buy Now
             </button>
           </div>

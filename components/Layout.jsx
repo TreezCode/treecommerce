@@ -8,10 +8,10 @@ const Layout = ({ children }) => {
       <Head>
         <title>HeartFeltDreamz Store</title>
       </Head>
-      <header>
+      <header className='header' id='myHeader'>
         <Navbar />
       </header>
-      <main className='main-container'>{children}</main>
+      <main className='main-container content'>{children}</main>
       <footer>
         <Footer />
       </footer>

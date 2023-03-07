@@ -24,7 +24,7 @@ const Cart = () => {
     toggleCartItemQuantity,
     onRemove,
   } = useStateContext();
-  
+
   const handleCheckout = async () => {
     const stripe = await getStripe();
 
@@ -36,14 +36,14 @@ const Cart = () => {
       body: JSON.stringify(cartItems),
     });
     console.log(response);
-    if(response.statusCode === 500) return;
+    if (response.statusCode === 500) return;
 
     const data = await response.json();
 
     toast.loading('Redirecting...');
 
     stripe.redirectToCheckout({ sessionId: data.id });
-  }
+  };
 
   const preventTextSelect = (event) => {
     if (event.detail > 1) {
@@ -54,29 +54,30 @@ const Cart = () => {
   return (
     <div className='cart-wrapper' ref={cartRef}>
       <div className='cart-container'>
-        <button
-          type='button'
-          className='cart-heading'
-          onClick={() => setShowCart(false)}
-        >
-          <AiOutlineLeft />
+        <div className='cart-heading'>
+          <AiOutlineLeft
+            className='cart-heading-arrow'
+            onClick={() => setShowCart(false)}
+          />
           <span className='heading'>Your Cart</span>
           <span className='cart-num-items'>({totalQuantities} items)</span>
-        </button>
+        </div>
 
         {cartItems.length < 1 && (
           <div className='empty-cart'>
             <AiOutlineShopping size={150} />
             <h3>Your shopping bag is empty</h3>
-            <Link href={'/'}>
-              <button
-                type='button'
-                className='btn'
-                onClick={() => setShowCart(false)}
-              >
-                Continue Shopping
-              </button>
-            </Link>
+            <div className='empty-cart-btn-container'>
+              <Link href={'/'}>
+                <button
+                  type='button'
+                  className='btn radial-gradient-btn empty-cart-btn '
+                  onClick={() => setShowCart(false)}
+                >
+                  Continue Shopping
+                </button>
+              </Link>
+            </div>
           </div>
         )}
 
@@ -86,10 +87,10 @@ const Cart = () => {
               <div className='product' key={item._id}>
                 <div className='cart-product-image'>
                   <Image
+                    fill
                     src={`${urlFor(item?.image[0])}`}
                     alt='product-alt'
-                    width={250}
-                    height={250}
+                    style={{ objectFit: 'contain' }}
                   />
                 </div>
                 <div className='item-desc'>
@@ -139,10 +140,16 @@ const Cart = () => {
               <h3>Subtotal:</h3>
               <h3>${totalPrice}</h3>
             </div>
-            <div className='btn-container'>
-              <button type='button' className='btn' onClick={handleCheckout}>
-                Pay with Stripe
-              </button>
+            <div className='cart-btn-container'>
+              <span className='cart-btn-wrapper'>
+                <button
+                  type='button'
+                  className='btn btn-medium cart-stripe-btn'
+                  onClick={handleCheckout}
+                >
+                  Pay with Stripe
+                </button>
+              </span>
             </div>
           </div>
         )}

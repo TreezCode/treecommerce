@@ -19,30 +19,36 @@ const FooterBanner = ({
 }) => {
   return (
     <div className='footer-banner-container'>
-      <div className='banner-desc'>
-        <div className='left'>
-          <p>{discount}</p>
+      <div className='footer-banner-content'>
+        <div className='footer-banner-left'>
+          <p>{discount} off discount!</p>
           <h3>{largeText1}</h3>
           <h3>{largeText2}</h3>
           <p>{saleTime}</p>
         </div>
-        <div className='right'>
+        <div className="footer-banner-mid">
+          <div className='footer-banner-image'>
+            <Image
+              fill
+              src={`${urlFor(image)}`}
+              alt='footer-alt'
+              style={{ objectFit: 'contain' }}
+            />
+          </div>
+        </div>
+        <div className='footer-banner-right'>
           <p>{smallText}</p>
-          <p>{midText}</p>
+          <h3>{midText}</h3>
           <p>{desc}</p>
-          <Link href={`/product/${product}`}>
-            <button type='button'>{buttonText}</button>
-          </Link>
+          <div className='footer-banner-btn-container'>
+            <Link href={`/product/${product}`}>
+              <button type='button' className='btn footer-banner-btn radial-gradient-btn'>
+                {buttonText}
+              </button>
+            </Link>
+          </div>
         </div>
 
-        <div className='footer-banner-image'>
-          <Image
-            src={`${urlFor(image)}`}
-            alt='footer-alt'
-            width={450}
-            height={450}
-          />
-        </div>
       </div>
     </div>
   );
