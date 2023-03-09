@@ -35,7 +35,7 @@ const Success = () => {
             </p>
             <div className='success-btn-container'>
                 <Link href='/'>
-                    <button type='button' width='300px' className='btn radial-gradient-btn success-btn'>Continue Shopping</button>
+                    <button type='button' className='btn radial-gradient-btn success-btn'>Continue Shopping</button>
                 </Link>
             </div>
         </div>

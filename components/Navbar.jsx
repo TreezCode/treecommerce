@@ -2,28 +2,25 @@ import { useEffect } from 'react';
 import Link from 'next/link';
 import { AiOutlineShopping } from 'react-icons/ai';
 
-import Cart from './Cart';
 import { useStateContext } from '@/context/StateContext';
+import Cart from './Cart';
 
 const Navbar = () => {
   const { showCart, setShowCart, totalQuantities } = useStateContext();
 
   useEffect(() => {
     const header = document.getElementById('myHeader');
-    const sticky = header.offsetTop;
-  
-    window.onscroll = function () {
-      stickyHeader();
-    };
-  
-    function stickyHeader() {
-      if (window.pageYOffset > sticky) {
-        header.classList.add('sticky');
-      } else {
-        header.classList.remove('sticky');
-      }
+
+    function handleHeaderGlow() {
+      window.scrollY > 0
+        ? header.classList.add('sticky-header-glow')
+        : header.classList.remove('sticky-header-glow');
     }
-  }, [])
+
+    window.onscroll = function () {
+      handleHeaderGlow();
+    };
+  }, []);
 
   return (
     <div className='navbar-container'>

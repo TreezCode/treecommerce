@@ -87,10 +87,10 @@ const Cart = () => {
               <div className='product' key={item._id}>
                 <div className='cart-product-image'>
                   <Image
-                    fill
                     src={`${urlFor(item?.image[0])}`}
                     alt='product-alt'
-                    style={{ objectFit: 'contain' }}
+                    width={150}
+                    height={150}
                   />
                 </div>
                 <div className='item-desc'>
@@ -99,29 +99,23 @@ const Cart = () => {
                     <h4>${item.price}</h4>
                   </div>
                   <div className='flex bottom'>
-                    <div>
-                      <p className='quantity-desc'>
-                        <span
-                          className='minus'
-                          onClick={() =>
-                            toggleCartItemQuantity(item._id, 'dec')
-                          }
-                          onMouseDown={preventTextSelect}
-                        >
-                          <AiOutlineMinus />
-                        </span>
-                        <span className='num'>{item.quantity}</span>
-                        <span
-                          className='plus'
-                          onClick={() =>
-                            toggleCartItemQuantity(item._id, 'inc')
-                          }
-                          onMouseDown={preventTextSelect}
-                        >
-                          <AiOutlinePlus />
-                        </span>
-                      </p>
-                    </div>
+                    <p className='quantity-desc'>
+                      <span
+                        className='minus'
+                        onClick={() => toggleCartItemQuantity(item._id, 'dec')}
+                        onMouseDown={preventTextSelect}
+                      >
+                        <AiOutlineMinus />
+                      </span>
+                      <span className='num'>{item.quantity}</span>
+                      <span
+                        className='plus'
+                        onClick={() => toggleCartItemQuantity(item._id, 'inc')}
+                        onMouseDown={preventTextSelect}
+                      >
+                        <AiOutlinePlus />
+                      </span>
+                    </p>
                     <button
                       type='button'
                       className='remove-item'

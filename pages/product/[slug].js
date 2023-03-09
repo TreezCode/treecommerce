@@ -23,9 +23,7 @@ const ProductDetails = ({ product, products }) => {
 
   let indexRef = useRef(0);
 
-  let mouseInsideImage = false;
-  let magnifierEnabled = false;
-  let magnification = 2;
+  let magnifierEnabled = true;
 
   // prevent text select on double-click
   const preventTextSelect = (event) => {
@@ -36,13 +34,34 @@ const ProductDetails = ({ product, products }) => {
 
   const slickSettings = {
     dots: false,
-    infinite: true,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    autoplay: true,
     speed: 3000,
     autoplaySpeed: 2000,
     cssEase: 'linear',
+    autoplay: true,
+    infinite: true,
+    centerMode: true,
+    centerPadding: '2rem',
+    slidesToShow: 3,
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          arrows: false,
+          centerMode: true,
+          centerPadding: '40px',
+          slidesToShow: 2
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          arrows: false,
+          centerMode: true,
+          centerPadding: '40px',
+          slidesToShow: 1
+        }
+      }
+    ]
   };
 
   const handleBuyNow = () => {
@@ -74,9 +93,7 @@ const ProductDetails = ({ product, products }) => {
                 if (e.target.matches('#productDetailImage')) {
                   handleMagnify(
                     e.target.id,
-                    magnification,
                     magnifierEnabled,
-                    mouseInsideImage
                   );
                 }
               }}

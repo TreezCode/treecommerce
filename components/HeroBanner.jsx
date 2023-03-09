@@ -8,6 +8,7 @@ const HeroBanner = ({
     smallText,
     midText,
     largeText1,
+    largeText2,
     product,
     buttonText,
     image,
@@ -15,14 +16,15 @@ const HeroBanner = ({
   },
 }) => {
   return (
-    <div className='hero-banner-container'>
-      <div className='hero-banner-content'>
-        <div className='hero-banner-item'>
+    <section className='hero-banner-section'>
+      <div className='hero-banner-container'>
+        <div className='hero-banner-content'>
           <div className='hero-banner-left'>
             <div className='hero-banner-text'>
               <p>{smallText}</p>
               <h3>{midText}</h3>
-              <h1>{largeText1}</h1>
+              <h2>{largeText1}</h2>
+              <h1>{largeText2}</h1>
             </div>
             <div className='hero-banner-btn-container'>
               <Link href={`/product/${product}`}>
@@ -38,20 +40,20 @@ const HeroBanner = ({
           <div className='hero-banner-right'>
             <div className='hero-banner-image'>
               <Image
+                fill
                 alt='headphones'
                 src={`${urlFor(image)}`}
-                width={450}
-                height={450}
+                style={{ objectFit: 'contain' }}
               />
-              <div className='hero-banner-desc'>
-                <h5>Description</h5>
-                <p>{desc}</p>
-              </div>
+            </div>
+            <div className='hero-banner-desc'>
+              <h5>Description</h5>
+              <p>{desc}</p>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
