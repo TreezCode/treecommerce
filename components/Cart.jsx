@@ -99,31 +99,34 @@ const Cart = () => {
                     <h4>${item.price}</h4>
                   </div>
                   <div className='flex bottom'>
-                    <p className='quantity-desc'>
-                      <span
-                        className='minus'
-                        onClick={() => toggleCartItemQuantity(item._id, 'dec')}
-                        onMouseDown={preventTextSelect}
+                    <p>Quantity:</p>
+                    <div className='quantity-desc-container'>
+                      <p className='quantity-desc'>
+                        <span
+                          className='minus'
+                          onClick={() => toggleCartItemQuantity(item._id, 'dec')}
+                          onMouseDown={preventTextSelect}
+                        >
+                          <AiOutlineMinus />
+                        </span>
+                        <span className='num'>{item.quantity}</span>
+                        <span
+                          className='plus'
+                          onClick={() => toggleCartItemQuantity(item._id, 'inc')}
+                          onMouseDown={preventTextSelect}
+                        >
+                          <AiOutlinePlus />
+                        </span>
+                      </p>
+                      <button
+                        type='button'
+                        className='remove-item'
+                        onClick={() => onRemove(item, true)}
                       >
-                        <AiOutlineMinus />
-                      </span>
-                      <span className='num'>{item.quantity}</span>
-                      <span
-                        className='plus'
-                        onClick={() => toggleCartItemQuantity(item._id, 'inc')}
-                        onMouseDown={preventTextSelect}
-                      >
-                        <AiOutlinePlus />
-                      </span>
-                    </p>
-                    <button
-                      type='button'
-                      className='remove-item'
-                      onClick={() => onRemove(item, true)}
-                    >
-                      <TiDeleteOutline />
-                    </button>
-                  </div>
+                        <TiDeleteOutline />
+                      </button>
+                    </div>
+                    </div>
                 </div>
               </div>
             ))}
@@ -141,7 +144,7 @@ const Cart = () => {
                   className='btn btn-medium cart-stripe-btn'
                   onClick={handleCheckout}
                 >
-                  Pay with Stripe
+                  Proceed to checkout
                 </button>
               </span>
             </div>

@@ -49,8 +49,8 @@ const ProductDetails = ({ product, products }) => {
           arrows: false,
           centerMode: true,
           centerPadding: '40px',
-          slidesToShow: 2
-        }
+          slidesToShow: 2,
+        },
       },
       {
         breakpoint: 480,
@@ -58,10 +58,10 @@ const ProductDetails = ({ product, products }) => {
           arrows: false,
           centerMode: true,
           centerPadding: '40px',
-          slidesToShow: 1
-        }
-      }
-    ]
+          slidesToShow: 1,
+        },
+      },
+    ],
   };
 
   const handleBuyNow = () => {
@@ -70,12 +70,12 @@ const ProductDetails = ({ product, products }) => {
   };
 
   useEffect(() => {
-    indexRef.current = 0
-    setIndex(0)
+    indexRef.current = 0;
+    setIndex(0);
     setQty(1);
   }, [product, setQty]);
-  
-  if (indexRef.current + 1 > image.length) indexRef.current = image.length - 1
+
+  if (indexRef.current + 1 > image.length) indexRef.current = image.length - 1;
 
   return (
     <>
@@ -87,16 +87,15 @@ const ProductDetails = ({ product, products }) => {
               src={`${urlFor(image && image[indexRef.current])}`}
               alt='product-alt'
               className='product-detail-image'
+              draggable={false}
               style={{ objectFit: 'contain' }}
               id='productDetailImage'
               onMouseEnter={(e) => {
                 if (e.target.matches('#productDetailImage')) {
-                  handleMagnify(
-                    e.target.id,
-                    magnifierEnabled,
-                  );
+                  handleMagnify(e.target.id, magnifierEnabled);
                 }
               }}
+              onClick={(e) => e.preventDefault}
             />
           </div>
           <div className='small-images-container'>
@@ -109,12 +108,13 @@ const ProductDetails = ({ product, products }) => {
                     src={`${urlFor(item)}`}
                     alt='product alt'
                     style={{ objectFit: 'contain' }}
+                    draggable={false}
                     className={
                       i === index ? 'small-image selected-image' : 'small-image'
                     }
                     onMouseEnter={() => {
                       setIndex(i);
-                      indexRef.current = i
+                      indexRef.current = i;
                     }}
                   />
                 </div>

@@ -29,13 +29,16 @@ const FooterBanner = ({
           </div>
           <div className='footer-banner-mid'>
             <div className='footer-banner-image'>
-              <Image
-              priority
-                fill
-                src={`${urlFor(image)}`}
-                alt='footer-alt'
-                style={{ objectFit: 'contain' }}
-              />
+              <Link href={`/product/${product}`}>
+                <Image
+                priority
+                  fill
+                  src={`${urlFor(image)}`}
+                  alt='footer-alt'
+                  style={{ objectFit: 'contain' }}
+                  draggable={false}
+                />
+              </Link>
             </div>
           </div>
           <div className='footer-banner-right'>
