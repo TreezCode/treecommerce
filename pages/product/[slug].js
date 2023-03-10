@@ -88,6 +88,7 @@ const ProductDetails = ({ product, products }) => {
               alt='product-alt'
               className='product-detail-image'
               draggable={false}
+              onContextMenu={(e) => e.preventDefault()}
               style={{ objectFit: 'contain' }}
               id='productDetailImage'
               onMouseEnter={(e) => {
@@ -95,7 +96,6 @@ const ProductDetails = ({ product, products }) => {
                   handleMagnify(e.target.id, magnifierEnabled);
                 }
               }}
-              onClick={(e) => e.preventDefault}
             />
           </div>
           <div className='small-images-container'>

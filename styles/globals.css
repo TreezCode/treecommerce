@@ -77,7 +77,7 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
 ::-webkit-scrollbar {
@@ -99,6 +99,7 @@ img {
   flex-grow: 1;
   min-height: 100vh;
   padding: 1rem;
+  overflow: hidden;
 }
 
 .layout {
@@ -631,8 +632,7 @@ span.text-red {
   border-radius: 50%;
   position: absolute;
   pointer-events: none;
-  transition: transform 0.25s ease, opacity 0s linear 0.25s,
-    background 0.25s ease;
+  transition: transform 0.25s ease, opacity 0s linear 0.25s, background 0.25s ease;
   opacity: 0;
   transform: scale(0);
   transform-origin: 50% 50%;
@@ -643,7 +643,7 @@ span.text-red {
 }
 
 .zoom:before {
-  content: '';
+  content: "";
   position: absolute;
   margin: auto;
   left: 0;
@@ -985,7 +985,7 @@ span.text-red {
 
 .slick-slider {
   box-shadow: 5px 0 5px -5px rgba(0, 0, 0, 0.664) inset,
-    -5px 0 5px -5px rgba(0, 0, 0, 0.7) inset;
+  -5px 0 5px -5px rgba(0,0,0,0.7) inset;
 }
 
 .slick-prev {
@@ -1119,7 +1119,7 @@ span.text-red {
 /* -=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=  Media Queries -=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-= */
 @media screen and (max-width: 1200px) {
   /* ---- Banner Images ---- */
-  .hero-banner-image,
+  .hero-banner-image ,
   .footer-banner-image {
     width: 375px;
     height: 375px;
@@ -1150,7 +1150,7 @@ span.text-red {
 
 @media screen and (max-width: 1024px) {
   /* ---- Banner Images ---- */
-  .hero-banner-image,
+  .hero-banner-image ,
   .footer-banner-image {
     width: 300px;
     height: 300px;
@@ -1420,7 +1420,7 @@ span.text-red {
     font-size: 1.25rem;
     font-weight: bold;
   }
-
+  
   /* ---- Footer Banner ---- */
   .footer-banner-content {
     padding: 1rem 0;
@@ -1430,7 +1430,7 @@ span.text-red {
   }
 
   .footer-container p:nth-of-type(2) {
-    font-size: 0.75rem;
+    font-size: 0.75rem
   }
 }
 
