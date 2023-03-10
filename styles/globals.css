@@ -196,7 +196,7 @@ img {
 /* -=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=  Header -=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-= */
 .header {
   background: var(--mainBackground);
-  z-index: 2000;
+  z-index: 500;
   position: sticky;
   top: 0;
 }
@@ -377,8 +377,10 @@ span.text-red {
 }
 
 .product-image-container {
+  position: relative;
   display: flex;
   justify-content: center;
+  align-items: center;
   border-radius: 15px;
   margin: 0 0.5rem;
   background-color: var(--productImageBackground);
@@ -470,6 +472,8 @@ span.text-red {
 
 .small-images-container {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
   gap: 10px;
   margin-top: 20px;
 }
@@ -620,11 +624,6 @@ span.text-red {
 }
 
 /* ====== Magnifying Glass ====== */
-.product-detail-image-container img {
-  vertical-align: middle;
-  z-index: 1;
-}
-
 .zoom {
   width: 14rem;
   height: 14rem;
@@ -639,7 +638,7 @@ span.text-red {
   overflow: hidden;
   border: 1px solid var(--heroBannerLargeText1);
   cursor: none;
-  z-index: 2000;
+  z-index: 600;
 }
 
 .zoom:before {
@@ -792,7 +791,6 @@ span.text-red {
   position: fixed;
   right: 0;
   top: 0;
-  z-index: 1500;
   transition: all 1s ease-in-out;
 }
 
@@ -805,6 +803,7 @@ span.text-red {
   float: right;
   padding: 40px 10px;
   position: relative;
+  
 }
 
 /* .cart-container .product-container {
@@ -990,12 +989,12 @@ span.text-red {
 
 .slick-prev {
   left: 25px !important;
-  z-index: 1000;
+  z-index: 100;
 }
 
 .slick-next {
   right: 25px !important;
-  z-index: 1000;
+  z-index: 100;
 }
 
 .slick-prev:before,
@@ -1318,9 +1317,9 @@ span.text-red {
     margin-top: 0.5rem;
   }
   .maylike-products-wrapper {
-    margin-top: 3rem;
+    margin: 3rem 1rem;
   }
-  .slick-slide .product-image-container .product-image {
+  .slick-slide .product-image-container.product-image {
     width: 175px;
     height: 175px;
   }
@@ -1387,7 +1386,14 @@ span.text-red {
   .product-detail-container {
     flex-direction: column;
     padding: 0.5rem;
-    margin-top: 0;
+    margin-top: 3rem;
+  }
+  .product-detail-container .image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 3rem 0;
   }
   .product-detail-image-container {
     width: 320px;
@@ -1397,11 +1403,7 @@ span.text-red {
     width: 320px;
   }
   .product-image-container {
-    margin: 0.25rem;
-  }
-  .slick-slide .product-image-container .product-image {
-    width: 150px;
-    height: 150px;
+    margin: 1.25rem;
   }
 
   /* ---- Cart ---- */
