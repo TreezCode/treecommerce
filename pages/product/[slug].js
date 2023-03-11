@@ -13,24 +13,14 @@ import {
 import { useStateContext } from '@/context/StateContext';
 import { readClient, urlFor } from '@/lib/client';
 import { Product } from '@/components';
-import { handleMagnify } from '@/lib/utils';
+import { magnify } from '@/lib/utils/magnify';
 
 const ProductDetails = ({ product, products }) => {
   const { image, name, details, price } = product;
   const [index, setIndex] = useState(0);
-
   const { setQty, decQty, incQty, qty, onAdd, setShowCart } = useStateContext();
 
   let indexRef = useRef(0);
-
-  let magnifierEnabled = true;
-
-  // prevent text select on double-click
-  const preventTextSelect = (event) => {
-    if (event.detail > 1) {
-      event.preventDefault();
-    }
-  };
 
   const slickSettings = {
     dots: false,
@@ -64,10 +54,22 @@ const ProductDetails = ({ product, products }) => {
     ],
   };
 
+  // prevent text select on double-click
+  const preventTextSelect = (event) => {
+    if (event.detail > 1) {
+      event.preventDefault();
+    }
+  };
+
   const handleBuyNow = () => {
     onAdd(product, qty);
     setShowCart(true);
   };
+
+  const handlePointerEvent = (e) => {
+    e.target.id === 'productDetailImage' &&
+      magnify(e.target.id);
+  }
 
   useEffect(() => {
     indexRef.current = 0;
@@ -87,15 +89,12 @@ const ProductDetails = ({ product, products }) => {
               src={`${urlFor(image && image[indexRef.current])}`}
               alt='product-alt'
               className='product-detail-image'
+              id='productDetailImage'
               draggable={false}
+              onDragStart={() => false}
               onContextMenu={(e) => e.preventDefault()}
               style={{ objectFit: 'contain' }}
-              id='productDetailImage'
-              onMouseEnter={(e) => {
-                if (e.target.matches('#productDetailImage')) {
-                  handleMagnify(e.target.id, magnifierEnabled);
-                }
-              }}
+              onPointerEnter={handlePointerEvent}
             />
           </div>
           <div className='small-images-container'>
@@ -109,9 +108,7 @@ const ProductDetails = ({ product, products }) => {
                     alt='product alt'
                     style={{ objectFit: 'contain' }}
                     draggable={false}
-                    className={
-                      i === index ? 'small-image selected-image' : 'small-image'
-                    }
+                    className={i === index ? 'small-image selected-image' : 'small-image'}
                     onMouseEnter={() => {
                       setIndex(i);
                       indexRef.current = i;
@@ -186,11 +183,7 @@ const ProductDetails = ({ product, products }) => {
 };
 
 export const getStaticPaths = async () => {
-  const query = `*[_type == "product"] {
-        slug {
-            current
-        }
-    }`;
+  const query = `*[_type == "product"] {slug {current}}`;
 
   const products = await readClient.fetch(query);
 

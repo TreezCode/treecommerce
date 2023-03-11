@@ -470,6 +470,10 @@ span.text-red {
   padding: 1rem;
 }
 
+#productDetailImage {
+  touch-action: none;
+}
+
 .small-images-container {
   display: flex;
   flex-wrap: wrap;
