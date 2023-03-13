@@ -235,11 +235,7 @@ img {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 1rem
-}
-
-.navbar-link {
-  transition: all 400ms ease;
+  gap: 1rem;
 }
 
 .navbar-links:hover .navbar-link {
@@ -260,11 +256,11 @@ img {
   font-size: 1.75rem;
   color: var(--mainFontColor);
   background-color: transparent;
-  transition: transform 0.4s ease;
   display: flex;
   position: relative;
   cursor: pointer;
   border: none;
+  transition: all 400ms ease;
 }
 
 .cart-icon {
@@ -1057,8 +1053,8 @@ span.text-red {
   color: var(--cornflowerText) !important;
 }
 
-.swiper-pagination-bullet-active {
-  background: var(--heroBannerLargeText1) !important;
+.swiper-pagination-bullet {
+  display: none !important;
 }
 
 .swiper-slide img {
