@@ -25,15 +25,17 @@ const Navbar = () => {
 
   return (
     <div className='navbar-container'>
-      <p className='navbar-logo'>
-        <Link href='/'>HeartFeltDreamz</Link>
-      </p>
+      <div className='navbar-logo-container'>
+        <Link href='/' className='navbar-logo'>HeartFeltDreamz</Link>
+      </div>
       <div className='navbar-links'>
-        <FaUserAlt className='navbar-link user-icon' />
-        <div className='navbar-link cart-icon'>
-          <AiOutlineShopping onClick={() => setShowCart(true)} />
+        <button type='button' className='navbar-link user-icon'>
+          <FaUserAlt />
+        </button>
+        <button type='button' className='navbar-link cart-icon' onClick={() => setShowCart(true)}>
+          <AiOutlineShopping />
           <span className='cart-item-qty'>{totalQuantities}</span>
-        </div>
+        </button>
 
         {showCart && <Cart />}
       </div>

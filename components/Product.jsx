@@ -6,8 +6,8 @@ import { urlFor } from '@/lib/client';
 const Product = ({ product: { image, name, slug, price } }) => {
   return (
     <>
-      <Link href={`/product/${slug.current}`}>
-        <div className='product-card'>
+      <div className='product-card'>
+        <Link href={`/product/${slug.current}`}>
           <div className='product-image-container'>
             <Image
               priority
@@ -19,10 +19,10 @@ const Product = ({ product: { image, name, slug, price } }) => {
               draggable={false}
             />
           </div>
-          <p className='product-name'>{name}</p>
-          <p className='product-price'>${price}</p>
-        </div>
-      </Link>
+        </Link>
+        <p className='product-name'>{name}</p>
+        <p className='product-price'>${price}</p>
+      </div>
     </>
   );
 };
