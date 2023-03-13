@@ -12,8 +12,13 @@ export default {
             },
         },
         {
+            name: 'bannerImgAlt',
+            title: 'Banner Image Alt',
+            type: 'string',
+        },
+        {
             name: 'buttonText',
-            title: 'ButtonText',
+            title: 'Button Text',
             type: 'string',
         },
         {
@@ -23,27 +28,27 @@ export default {
         },
         {
             name: 'desc',
-            title: 'Desc',
+            title: 'Description',
             type: 'string',
         },
         {
             name: 'smallText',
-            title: 'SmallText',
+            title: 'Small Text',
             type: 'string',
         },
         {
             name: 'midText',
-            title: 'MidText',
+            title: 'Mid Text',
             type: 'string',
         },
         {
             name: 'largeText1',
-            title: 'LargeText1',
+            title: 'Large Text 1',
             type: 'string',
         },
         {
             name: 'largeText2',
-            title: 'LargeText2',
+            title: 'Large Text 2',
             type: 'string',
         },
         {
@@ -53,7 +58,7 @@ export default {
         },
         {
             name: 'saleTime',
-            title: 'SaleTime',
+            title: 'Sale Time',
             type: 'string',
         },
     ],

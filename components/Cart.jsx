@@ -84,13 +84,15 @@ const Cart = () => {
         <div className='product-container'>
           {cartItems.length >= 1 &&
             cartItems.map((item) => (
-              <div className='product' key={item._id}>
-                <div className='cart-product-image'>
+              <div className='cart-product' key={item._id}>
+                <div className='cart-product-image-container'>
                   <Image
                     src={`${urlFor(item?.image[0])}`}
+                    className='cart-product-image'
                     alt='product-alt'
                     width={150}
                     height={150}
+                    style={{objectFit: 'contain'}}
                   />
                 </div>
                 <div className='item-desc'>

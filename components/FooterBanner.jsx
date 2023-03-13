@@ -28,18 +28,17 @@ const FooterBanner = ({
             <p>{saleTime}</p>
           </div>
           <div className='footer-banner-mid'>
-            <div className='footer-banner-image'>
-              <Link href={`/product/${product}`}>
+            <Link href={`/product/${product}`}>
+              <div className='footer-banner-image'>
                 <Image
-                priority
                   fill
                   src={`${urlFor(image)}`}
                   alt='footer-alt'
                   style={{ objectFit: 'contain' }}
                   draggable={false}
                 />
-              </Link>
-            </div>
+              </div>
+            </Link>
           </div>
           <div className='footer-banner-right'>
             <p>{smallText}</p>

@@ -13,14 +13,14 @@ import {
 import { useStateContext } from '@/context/StateContext';
 import { readClient, urlFor } from '@/lib/client';
 import { Product } from '@/components';
-import { magnify } from '@/lib/utils/magnify';
+import { handleMagnify } from '@/lib/utils/magnify';
 
 const ProductDetails = ({ product, products }) => {
-  const { image, name, details, price } = product;
-  const [index, setIndex] = useState(0);
+  const { image, hiResImage, productImgAlt, name, details, price } = product;
   const { setQty, decQty, incQty, qty, onAdd, setShowCart } = useStateContext();
+  const [index, setIndex] = useState(0);
 
-  let indexRef = useRef(0);
+  let imageRef = useRef(0);
 
   const slickSettings = {
     dots: false,
@@ -30,15 +30,24 @@ const ProductDetails = ({ product, products }) => {
     autoplay: true,
     infinite: true,
     centerMode: true,
-    centerPadding: '2rem',
-    slidesToShow: 3,
+    centerPadding: '80px',
+    slidesToShow: 4,
     responsive: [
+      {
+        breakpoint: 1200,
+        settings: {
+          arrows: false,
+          centerMode: true,
+          centerPadding: '40px',
+          slidesToShow: 3,
+        },
+      },
       {
         breakpoint: 768,
         settings: {
           arrows: false,
           centerMode: true,
-          centerPadding: '40px',
+          centerPadding: '30px',
           slidesToShow: 2,
         },
       },
@@ -47,7 +56,7 @@ const ProductDetails = ({ product, products }) => {
         settings: {
           arrows: false,
           centerMode: true,
-          centerPadding: '40px',
+          centerPadding: '20px',
           slidesToShow: 1,
         },
       },
@@ -67,51 +76,63 @@ const ProductDetails = ({ product, products }) => {
   };
 
   const handlePointerEvent = (e) => {
-    e.target.id === 'productDetailImage' &&
-      magnify(e.target.id);
-  }
+    e.target.id === 'productDetailImage' && handleMagnify(e.target.id);
+  };
 
   useEffect(() => {
-    indexRef.current = 0;
+    imageRef.current = 0;
     setIndex(0);
     setQty(1);
-  }, [product, setQty]);
+  }, [product, image, hiResImage, setQty]);
 
-  if (indexRef.current + 1 > image.length) indexRef.current = image.length - 1;
+  if (imageRef.current + 1 > image.length) imageRef.current = image.length - 1;
 
   return (
     <>
       <div className='product-detail-container'>
-        <div className='image-container'>
+        <div className='product-detail-wrapper'>
           <div className='product-detail-image-container'>
             <Image
+              priority
               fill
-              src={`${urlFor(image && image[indexRef.current])}`}
-              alt='product-alt'
+              style={{ objectFit: 'contain' }}
               className='product-detail-image'
               id='productDetailImage'
+              alt={productImgAlt ? productImgAlt : 'High quality product image'}
+              src={`${urlFor(image && image[imageRef.current])}`}
+              data-hires={
+                !hiResImage
+                  ? `${urlFor(image && image[imageRef.current])}`
+                  : `${urlFor(hiResImage && hiResImage[imageRef.current])}`
+              }
               draggable={false}
               onDragStart={() => false}
               onContextMenu={(e) => e.preventDefault()}
-              style={{ objectFit: 'contain' }}
               onPointerEnter={handlePointerEvent}
             />
           </div>
+          <p>Tap to zoom 👆🔎</p>
           <div className='small-images-container'>
             {image?.map((item, i) => {
               return (
-                <div className='small-image-wrap' key={item._key}>
+                <div className='small-image-wrapper' key={item._key}>
                   <Image
                     fill
+                    style={{ objectFit: 'contain' }}
                     key={item._key}
                     src={`${urlFor(item)}`}
-                    alt='product alt'
-                    style={{ objectFit: 'contain' }}
+                    alt={
+                      productImgAlt
+                        ? productImgAlt
+                        : 'High quality product image'
+                    }
+                    className={
+                      i === index ? 'small-image selected-image' : 'small-image'
+                    }
                     draggable={false}
-                    className={i === index ? 'small-image selected-image' : 'small-image'}
-                    onMouseEnter={() => {
+                    onPointerEnter={() => {
                       setIndex(i);
-                      indexRef.current = i;
+                      imageRef.current = i;
                     }}
                   />
                 </div>
@@ -170,7 +191,7 @@ const ProductDetails = ({ product, products }) => {
           </div>
         </div>
       </div>
-      <div className='maylike-products-wrapper'>
+      <div className='similar-products-container'>
         <h2>You may also like</h2>
         <Slider {...slickSettings}>
           {products?.map((item) => {
@@ -188,9 +209,7 @@ export const getStaticPaths = async () => {
   const products = await readClient.fetch(query);
 
   const paths = products.map((product) => ({
-    params: {
-      slug: product.slug.current,
-    },
+    params: { slug: product.slug.current },
   }));
 
   return {

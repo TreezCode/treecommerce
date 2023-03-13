@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
-import Link from 'next/link';
-import { BsBagCheckFill } from 'react-icons/bs';
-import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
+import Cookies from 'js-cookie';
+import { BsBagCheckFill } from 'react-icons/bs';
 
 import { useStateContext } from '@/context/StateContext';
-import { runFireWorks } from '@/lib/utils';
+import { runFireWorks } from '@/lib/utils/confetti';
 
 const Success = () => {
     const { setCartItems, setTotalPrice, setTotalQuantities } = useStateContext();

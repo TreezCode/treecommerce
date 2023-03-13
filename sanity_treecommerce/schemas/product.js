@@ -13,6 +13,20 @@ export default {
             }
         },
         {
+            name: 'hiResImage',
+            title: 'High Resolution Images',
+            type: 'array',
+            of: [{ type: 'image' }],
+            options: {
+                hotspot: true,
+            }
+        },
+        {
+            name: 'productImgAlt',
+            title: 'Product Image Alt',
+            type: 'string',
+        },
+        {
             name: 'name',
             title: 'Name',
             type: 'string',

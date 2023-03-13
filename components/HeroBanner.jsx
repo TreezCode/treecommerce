@@ -38,8 +38,8 @@ const HeroBanner = ({
             </div>
           </div>
           <div className='hero-banner-right'>
-            <div className='hero-banner-image'>
-              <Link href={`/product/${product}`}>
+            <Link href={`/product/${product}`}>
+              <div className='hero-banner-image'>
                 <Image
                   fill
                   alt='headphones'
@@ -47,8 +47,8 @@ const HeroBanner = ({
                   style={{ objectFit: 'contain' }}
                   draggable={false}
                 />
-              </Link>
-            </div>
+              </div>
+            </Link>
             <div className='hero-banner-desc'>
               <h5>Description</h5>
               <p>{desc}</p>
