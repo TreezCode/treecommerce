@@ -1,14 +1,17 @@
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
 import {
   AiOutlineMinus,
   AiOutlinePlus,
   AiFillStar,
   AiOutlineStar,
 } from 'react-icons/ai';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Pagination, Navigation } from 'swiper';
+
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
 import { useStateContext } from '@/context/StateContext';
 import { readClient, urlFor } from '@/lib/client';
@@ -21,47 +24,6 @@ const ProductDetails = ({ product, products }) => {
   const [index, setIndex] = useState(0);
 
   let imageRef = useRef(0);
-
-  const slickSettings = {
-    dots: false,
-    speed: 3000,
-    autoplaySpeed: 2000,
-    cssEase: 'linear',
-    autoplay: true,
-    infinite: true,
-    centerMode: true,
-    centerPadding: '80px',
-    slidesToShow: 4,
-    responsive: [
-      {
-        breakpoint: 1200,
-        settings: {
-          arrows: false,
-          centerMode: true,
-          centerPadding: '40px',
-          slidesToShow: 3,
-        },
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          arrows: false,
-          centerMode: true,
-          centerPadding: '30px',
-          slidesToShow: 2,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          arrows: false,
-          centerMode: true,
-          centerPadding: '20px',
-          slidesToShow: 1,
-        },
-      },
-    ],
-  };
 
   // prevent text select on double-click
   const preventTextSelect = (event) => {
@@ -111,7 +73,7 @@ const ProductDetails = ({ product, products }) => {
               onPointerEnter={handlePointerEvent}
             />
           </div>
-          <p>Tap to zoom 👆🔎</p>
+          <p>Touch to zoom 👆🔎</p>
           <div className='small-images-container'>
             {image?.map((item, i) => {
               return (
@@ -193,11 +155,43 @@ const ProductDetails = ({ product, products }) => {
       </div>
       <div className='similar-products-container'>
         <h2>You may also like</h2>
-        <Slider {...slickSettings}>
+        <Swiper
+          loop={true}
+          spaceBetween={100}
+          centeredSlides={true}
+          autoplay={{
+            delay: 2500,
+            disableOnInteraction: false,
+          }}
+          pagination={{
+            clickable: true,
+          }}
+          navigation={true}
+          breakpoints={{
+            640: {
+              slidesPerView: 2,
+              spaceBetween: 20,
+            },
+            768: {
+              slidesPerView: 3,
+              spaceBetween: 40,
+            },
+            1024: {
+              slidesPerView: 4,
+              spaceBetween: 50,
+            },
+          }}
+          modules={[Autoplay, Pagination, Navigation]}
+          className='mySwiper'
+        >
           {products?.map((item) => {
-            return <Product key={item._id} product={item} />;
+            return (
+              <SwiperSlide key={item._id}>
+                <Product key={item._id} product={item} />
+              </SwiperSlide>
+            );
           })}
-        </Slider>
+        </Swiper>
       </div>
     </>
   );

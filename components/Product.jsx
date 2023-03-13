@@ -11,12 +11,11 @@ const Product = ({ product: { image, name, slug, price } }) => {
           <div className='product-image-container'>
             <Image
               priority
+              fill
+              style={{ objectFit: 'contain' }}
               alt='product alt'
               className='product-image'
               src={`${urlFor(image && image[0])}`}
-              width={250}
-              height={250}
-              style={{objectFit: 'contain'}}
               draggable={false}
             />
           </div>

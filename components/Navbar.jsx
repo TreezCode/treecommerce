@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import Link from 'next/link';
 import { AiOutlineShopping } from 'react-icons/ai';
+import { FaUserAlt } from 'react-icons/fa';
 
 import { useStateContext } from '@/context/StateContext';
 import Cart from './Cart';
@@ -24,19 +25,18 @@ const Navbar = () => {
 
   return (
     <div className='navbar-container'>
-      <p className='logo'>
+      <p className='navbar-logo'>
         <Link href='/'>HeartFeltDreamz</Link>
       </p>
-      <button
-        type='button'
-        className='cart-icon'
-        onClick={() => setShowCart(true)}
-      >
-        <AiOutlineShopping />
-        <span className='cart-item-qty'>{totalQuantities}</span>
-      </button>
+      <div className='navbar-links'>
+        <FaUserAlt className='navbar-link user-icon' />
+        <div className='navbar-link cart-icon'>
+          <AiOutlineShopping onClick={() => setShowCart(true)} />
+          <span className='cart-item-qty'>{totalQuantities}</span>
+        </div>
 
-      {showCart && <Cart />}
+        {showCart && <Cart />}
+      </div>
     </div>
   );
 };
