@@ -17,8 +17,23 @@ export default async function handler(req, res) {
         line_items: req.body.map((item) => {
           const projectId = process.env.SANITY_PROJECT_ID
           const img = item.image[0].asset._ref;
-          const newImg = img.replace('image-', `https://cdn.sanity.io/images/${projectId}/production/`).replace('-webp', '.webp');
-
+          let newImg;
+          switch (img) {
+            case img.includes('webp'):
+              newImg = img.replace('image-', `https://cdn.sanity.io/images/${projectId}/production/`).replace('-webp', '.webp');
+              break;
+            case img.includes('jpeg'):
+              newImg = img.replace('image-', `https://cdn.sanity.io/images/${projectId}/production/`).replace('-jpeg', '.jpeg');
+              break;
+            case img.includes('png'):
+              newImg = img.replace('image-', `https://cdn.sanity.io/images/${projectId}/production/`).replace('-png', '.png');
+              break;
+            case img.includes('png'):
+              newImg = img.replace('image-', `https://cdn.sanity.io/images/${projectId}/production/`).replace('-TIFF', '.TIFF');
+              break;
+            default:
+              console.error(`Error, unexpected file format from ${img}.`);
+          }
           return {
             price_data: {
               currency: 'usd',

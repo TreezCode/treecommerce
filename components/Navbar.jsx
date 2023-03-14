@@ -26,7 +26,7 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
-    console.log(user);
+    user ? console.log(user) : console.log('Not logged in');
   }, [user, error, isLoading]);
 
   return (
