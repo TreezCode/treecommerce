@@ -3,13 +3,14 @@
   --mainBackground: #000000;
   --secondaryBackground: #170b3b;
   --mainFontColor: #ffffff;
-  --mainborder: 1px solid rgba(238, 130, 238, 0.389);
-  --thickborder: 3px solid rgba(238, 130, 238, 0.389);
+  --mainborder:  1px solid rgba(175, 130, 238, 0.389);
+  --thickborder: 3px solid rgba(175, 130, 238, 0.389);
   --headerGlow: #9d0deace 0 0 7px 4px;
   --heroBannerBackground: #001951;
   --heroBannerMidText: #a5a7cf;
   --heroBannerLargeText1: #9b0dea;
   --heroBannerDescFont: #ffffff;
+  --navbarBorder: 1px solid rgb(10, 10, 10);
   --bannerShadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.6);
   --productImageBackground: #0501089b;
   --productImageBackgroundHover: #9d0dea35;
@@ -125,7 +126,7 @@ img {
   z-index: 0;
   background: radial-gradient(
         circle,
-        rgba(255, 255, 255, 0.06) 9%,
+        rgba(255, 255, 255, 0.05) 9%,
         transparent 10%
       )
       0 0,
@@ -226,7 +227,7 @@ header {
   position: sticky;
   top: 0;
   box-shadow: 0 0 10px 7px #000000d0;
-  border-bottom: var(--mainborder);
+  border-bottom: var(--navbarBorder);
 }
 
 .sticky-header-glow {
@@ -326,7 +327,7 @@ span.text-red {
   /* min-height: calc(100vh - 260px); */
   padding: 1rem;
   border-radius: 15px;
-  border: 1px solid rgba(238, 130, 238, 0.389);
+  border: var(--mainborder);
   box-shadow: var(--bannerShadow);
 }
 
@@ -527,7 +528,7 @@ span.text-red {
   justify-content: center;
   padding: 1rem;
   border-radius: 15px;
-  border: 1px solid rgba(238, 130, 238, 0.389);
+  border: var(--mainborder);
   box-shadow: var(--bannerShadow);
 }
 
@@ -1208,6 +1209,7 @@ footer {
   padding: 1rem;
   background: var(--mainBackground);
   box-shadow: 0 0 10px 7px #080413d0;
+  border-top: var(--navbarBorder);
 }
 
 .footer-container p {
@@ -1462,11 +1464,6 @@ footer {
 }
 
 @media screen and (max-width: 480px) {
-  /* ---- Header ---- */
-  .header {
-    border-bottom: var(--mainborder);
-  }
-
   /* ---- Main ---- */
   .main-container {
     padding: 0;
@@ -1525,6 +1522,7 @@ footer {
   /* ---- Cart ---- */
   .cart-container {
     width: 100vw;
+    border-left: none;
   }
   .cart-container .product-container {
     padding: 1rem 0;

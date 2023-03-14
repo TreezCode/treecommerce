@@ -10,7 +10,7 @@ const Background = () => {
     const handleScroll = () => {
       if (bgCurrent) {
         const scrollPos = window.pageYOffset;
-        bgRef.current.style.backgroundPositionY = `${-scrollPos * 0.2}px`;
+        bgRef.current.style.backgroundPositionY = `${-scrollPos * 0.3}px`;
         // bgRef.current.style.opacity = `${1 - scrollPos / 1000}`;
         bgRef.current.style.opacity = `0.6`;
         clearTimeout(timeoutId);
