@@ -51,8 +51,8 @@ const ProductDetails = ({ product, products }) => {
 
   return (
     <>
-      <div className='product-detail-container'>
-        <div className='product-detail-wrapper'>
+      <section className='product-detail-section'>
+        <div className='product-detail-container'>
           <div className='product-detail-image-container'>
             <Image
               priority
@@ -152,16 +152,16 @@ const ProductDetails = ({ product, products }) => {
             </button>
           </div>
         </div>
-      </div>
-      <div className='similar-products-container'>
+      </section>
+      <section className='similar-products-section'>
         <h2>You may also like</h2>
         <Swiper
           loop={true}
-          spaceBetween={100}
           centeredSlides={true}
           autoplay={{
             delay: 2500,
             disableOnInteraction: false,
+            pauseOnMouseEnter: true,
           }}
           pagination={{
             clickable: true,
@@ -176,7 +176,7 @@ const ProductDetails = ({ product, products }) => {
               slidesPerView: 3,
               spaceBetween: 40,
             },
-            1024: {
+            1200: {
               slidesPerView: 4,
               spaceBetween: 50,
             },
@@ -192,7 +192,7 @@ const ProductDetails = ({ product, products }) => {
             );
           })}
         </Swiper>
-      </div>
+      </section>
     </>
   );
 };

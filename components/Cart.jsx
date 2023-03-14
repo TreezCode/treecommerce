@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { TiDeleteOutline } from 'react-icons/ti';
@@ -35,21 +35,37 @@ const Cart = () => {
       },
       body: JSON.stringify(cartItems),
     });
-    console.log(response);
+
     if (response.statusCode === 500) return;
 
     const data = await response.json();
 
     toast.loading('Redirecting...');
-
     stripe.redirectToCheckout({ sessionId: data.id });
   };
 
   const preventTextSelect = (event) => {
     if (event.detail > 1) {
-      event.preventDefault(); // prevent text select on double-click
+      event.preventDefault();
     }
   };
+
+  const handleClickOutside = (e) => {
+    const cartContainer = document.querySelector('.cart-container');
+    const isClickInsideCart = cartContainer.contains(e.target);
+
+    if (!isClickInsideCart) {
+      setShowCart(false)
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener("pointerdown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("pointerdown", handleClickOutside);
+    };
+  }, [])
 
   return (
     <div className='cart-wrapper' ref={cartRef}>

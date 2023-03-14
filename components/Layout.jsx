@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Footer from './Footer';
 import Navbar from './Navbar';
+import Background from './Background';
 
 const Layout = ({ children }) => {
   return (
@@ -11,7 +12,12 @@ const Layout = ({ children }) => {
       <header className='header' id='myHeader'>
         <Navbar />
       </header>
-      <main className='main-container'>{children}</main>
+      <main className='main-container'>
+        <>
+          <Background />
+          {children}
+        </>
+      </main>
       <footer>
         <Footer />
       </footer>

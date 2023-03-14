@@ -5,19 +5,19 @@ const Footer = () => {
   return (
     <div className='footer-container'>
       <p className='icons'>
-        <Link href={'https://www.etsy.com/shop/HeartFeltDreamz'}>
+        <Link href={'https://www.etsy.com/shop/HeartFeltDreamz'} target='_blank'>
           <FaEtsy />
         </Link>
-        <Link href={'https://www.instagram.com/heartfeltdreamz/'}>
+        <Link href={'https://www.instagram.com/heartfeltdreamz/'} target='_blank'>
           <FaInstagram />
         </Link>
-        <Link href={'https://www.pinterest.com/'}>
+        <Link href={'https://www.pinterest.com/'} target='_blank'>
           <FaPinterest />
         </Link>
-        <Link href={'https://www.facebook.com/'}>
+        <Link href={'https://www.facebook.com/'} target='_blank'>
           <FaFacebookSquare />
         </Link>
-        <Link href={'https://twitter.com/'}>
+        <Link href={'https://twitter.com/'} target='_blank'>
           <FaTwitter />
         </Link>
       </p>
