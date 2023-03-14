@@ -1,8 +1,10 @@
+import { UserProvider } from '@auth0/nextjs-auth0/client';
+import { StateContext } from '@/context/StateContext';
+
 import { Toaster } from 'react-hot-toast';
 import { Montserrat, Raleway } from 'next/font/google';
 
 import { Layout } from '@/components';
-import { StateContext } from '@/context/StateContext';
 import '@/styles/globals.css';
 
 const montserrat = Montserrat({
@@ -19,13 +21,15 @@ const raleway = Raleway({
 
 export default function App({ Component, pageProps }) {
   return (
-    <StateContext>
-      <div className={`${montserrat.className} ${raleway.variable}`}>
-        <Layout>
-          <Toaster />
-            <Component {...pageProps} />
-        </Layout>
-      </div>
-    </StateContext>
+    <UserProvider>
+      <StateContext>
+        <div className={`${montserrat.className} ${raleway.variable}`}>
+          <Layout>
+            <Toaster />
+              <Component {...pageProps} />
+          </Layout>
+        </div>
+      </StateContext>
+    </UserProvider>
   );
 }
